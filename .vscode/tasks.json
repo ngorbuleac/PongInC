@@ -1,0 +1,23 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+    {
+        "label": "Compila C",
+        "type": "shell",
+        "command": "gcc",
+        "args": [
+            "-g",
+            "${file}",
+            "-o",
+            "${fileDirname}/${fileBasenameNoExtension}",
+            "-I/opt/homebrew/opt/ncurses/include",
+            "-L/opt/homebrew/opt/ncurses/lib",
+            "-lncurses"
+        ],
+        "group": {
+        "kind": "build",
+        "isDefault": true
+        }
+    }
+    ]
+}

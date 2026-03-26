@@ -1,0 +1,6 @@
+# eseguibile compilato
+main
+main.dSYM/
+# file oggetto
+*.o
+
