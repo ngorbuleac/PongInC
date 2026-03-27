@@ -2,9 +2,10 @@
 #include <stdio.h>
 #include <ncurses.h>
 
+void setup();
+void disegna_campo(int y, int x);
 void disegna_racchetta(int riga_partenza, int colonna, int lunghezza);
 void gestisci_input(int key, int *racket_y);
-void setup();
 
 // mvvline()
 
@@ -25,23 +26,35 @@ int main() {
     // 0
     // 0
     // 0
-
-    // mvvline(half_h - 2, 0, '|', 4);
-    // mvvline(half_h - 2, w - 1, '|', 4);
+    // 0
+    // 0
+    // 0
+    // 0
+    // 0
+    // 0
 
     int y, x, half_y,
         racket_y, bot_racket_y;
-    int racket_length = 6;
+    int racket_length;
 
     getmaxyx(stdscr, y, x);
+
+    if(y < 24 || x < 80) {
+        endwin();
+        printf("Muchachito!!!!\nTerminale troppo piccolo! Minimo 80x24.\n");
+        return 1;
+    }
+    racket_length = y/5;
     racket_y = bot_racket_y = half_y= y/2;
     
     while(1) {
 
         clear();
 
-        disegna_racchetta(racket_y, 0, racket_length);
-        disegna_racchetta(bot_racket_y, x - 1, racket_length);
+        disegna_campo(y, x);
+
+        disegna_racchetta(racket_y, 2, racket_length);
+        disegna_racchetta(bot_racket_y, x - 3, racket_length);
 
         refresh();
         
@@ -83,11 +96,24 @@ void setup() {
     curs_set(0);          // nascondi il cursore
 }
 
+void disegna_campo(int y, int x) {
+    // orizzontale
+    mvhline(0, 0, '-', x);
+    mvhline(y - 1, 0, '-', x);
+
+    // verticale
+    mvvline(0, 0, '(', y);
+    mvvline(0, x - 1, ')', y);
+}
+
 void disegna_racchetta(int riga_partenza, int colonna, int lunghezza) {
     mvvline(riga_partenza - lunghezza, colonna, '|', 2*lunghezza);
 }
 
 void gestisci_input(int key, int *racket_y) {
+
+    if(lunghezza +)
+
     if(key == KEY_UP)       (*racket_y)--;
     if(key == KEY_DOWN)     (*racket_y)++;
 }
