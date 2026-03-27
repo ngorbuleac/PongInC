@@ -112,8 +112,6 @@ void disegna_racchetta(int riga_partenza, int colonna, int lunghezza) {
 
 void gestisci_input(int key, int *racket_y) {
 
-    if(lunghezza +)
-
-    if(key == KEY_UP)       (*racket_y)--;
-    if(key == KEY_DOWN)     (*racket_y)++;
+    if(key == KEY_UP || key == 'w')       (*racket_y)--;
+    if(key == KEY_DOWN || key == 's')     (*racket_y)++;
 }
