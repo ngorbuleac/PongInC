@@ -4,3 +4,7 @@ main.dSYM/
 # file oggetto
 *.o
 
+# cartella per memorizzare preferenze nel finder 
+# che crea macos automaticamente
+.DS_Store
+
