@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <ncurses.h>
+#include <unistd.h>
 
 void setup();
 void disegna_campo(int y, int x);
@@ -42,7 +43,12 @@ int main() {
     
     while(1) {
 
-        clear();
+        int key = getch(); // getch() legge un tasto premuto
+        flushinp();  // svuota il buffer dei tasti in coda
+        if(key == 'q')              break;
+        gestisci_input(key, &racket_y, y, racket_length);
+
+        erase();
 
         disegna_campo(y, x);
 
@@ -50,31 +56,10 @@ int main() {
         disegna_racchetta(bot_racket_y, x - 3, racket_length);
 
         refresh();
-        
 
-        int key = getch(); // getch() legge un tasto premuto
-        if(key == 'q')              break;
-        gestisci_input(key, &racket_y, y, racket_length);
+        usleep(16000);
 
-        
     }
-
-    // while(1) {
-    //     clear(); // pulisce tutto lo schermo
-    //     mvaddch(y, x, 'O'); // stampa un singolo carattere
-    //     refresh(); // aggiorna schermo
-
-    //     int tasto = getch(); // getch() legge un tasto premuto
-    //     if(tasto == KEY_UP)         y--;
-    //     if(tasto == KEY_DOWN)       y++;
-    //     if(tasto == KEY_LEFT)       x--;
-    //     if(tasto == KEY_RIGHT)      x++;
-    //     if(tasto == 'q')              break;
-
-    // }
-
-    // getch();
-    // refresh();
 
     endwin();             // ripristina il terminale normale
 
@@ -86,6 +71,7 @@ void setup() {
     cbreak();             // input carattere per carattere (senza Invio)
     noecho();             // non mostrare i tasti premuti
     keypad(stdscr, TRUE); // abilita frecce direzionali
+    nodelay(stdscr, TRUE); // non aspettare input, getch() restituisce -1 se nessun tasto è premuto
     curs_set(0);          // nascondi il cursore
 }
 
