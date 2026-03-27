@@ -4,14 +4,18 @@ Pong in C nel terminale usando ncurses, sviluppato su macOS.
 
 ## Stato attuale
 
-- Due racchette disegnate nel terminale (giocatore a sinistra, bot a destra)
-- La racchetta del giocatore si muove con le frecce su/giù
+- Campo da gioco con bordi disegnati nel terminale
+- Due racchette (giocatore a sinistra, bot a destra)
+- Dimensione racchetta proporzionale all'altezza del terminale
+- La racchetta del giocatore si muove con le frecce su/giù oppure W/S
+- Controllo dimensione minima del terminale all'avvio
 - Premi `q` per uscire
 
 ## Requisiti
 
 - macOS con Xcode Command Line Tools
 - ncurses (installabile con `brew install ncurses`)
+- Terminale di almeno 80x24
 
 ## Compilazione
 
@@ -29,12 +33,13 @@ gcc -g main.c -o main -I/opt/homebrew/opt/ncurses/include -L/opt/homebrew/opt/nc
 
 | Tasto | Azione |
 |-------|--------|
-| `↑` | Muovi racchetta su |
-| `↓` | Muovi racchetta giù |
+| `↑` / `W` | Muovi racchetta su |
+| `↓` / `S` | Muovi racchetta giù |
 | `q` | Esci |
 
 ## Struttura del codice
 
 - `setup()` — inizializza ncurses
+- `disegna_campo(y, x)` — disegna i bordi del campo
 - `disegna_racchetta(riga_partenza, colonna, lunghezza)` — disegna una racchetta verticale
 - `gestisci_input(key, *racket_y)` — gestisce l'input del giocatore
